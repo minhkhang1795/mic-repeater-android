@@ -97,7 +97,7 @@ public class MainActivity extends Activity {
         long elapsedTimeS = (currentTimeMillis() - startTime) / 1000;
         Bundle bundle = new Bundle();
         bundle.putString("RelayingControlAction", "stop");
-        bundle.putInt("ElapsedSeconds", (int)elapsedTimeS);
+        bundle.putLong("ElapsedSeconds", (int) elapsedTimeS);
 //        mFirebaseAnalytics.logEvent("RelayingButtonPress", bundle);
     }
 
