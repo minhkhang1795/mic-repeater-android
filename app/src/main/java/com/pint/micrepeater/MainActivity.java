@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -169,11 +170,15 @@ public class MainActivity extends Activity {
      * Starts the AudioRelayService.
      */
     private void startAudioService() {
+        int streamType = audioManager.isWiredHeadsetOn() ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
         audioRelayServiceIntent = new Intent(this, AudioRelayService.class);
-        audioRelayServiceIntent.putExtra(AudioRelayService.STREAM_KEY,
-                audioManager.isWiredHeadsetOn() ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM);
+        audioRelayServiceIntent.putExtra(AudioRelayService.STREAM_KEY, streamType);
         // Set default volume control to alarm volume control
-        setVolumeControlStream(audioManager.isWiredHeadsetOn() ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM);
+        setVolumeControlStream(streamType);
+        // Set volume to max
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            audioManager.setStreamVolume(streamType, audioManager.getStreamMaxVolume(streamType), AudioManager.FLAG_SHOW_UI);
+        }
         startService(audioRelayServiceIntent);
         recordingInProgress = true;
     }
