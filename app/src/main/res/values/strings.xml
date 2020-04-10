@@ -5,4 +5,13 @@
     <string name="bluetooth_initializing">Bluetooth initializing…</string>
     <string name="bluetooth_available">Bluetooth ready</string>
     <string name="bluetooth_unavailable">Bluetooth microphone unavailable.\nPlease ensure your Bluetooth device is connected, then close and reopen the app.</string>
+    <string name="stream1">Stream Accessibility</string>
+    <string name="stream2">Stream Alarm</string>
+    <string name="stream3">Stream DTMF</string>
+    <string name="stream4">Stream Music</string>
+    <string name="stream5">Stream Notification</string>
+    <string name="stream6">Stream Ring</string>
+    <string name="stream7">Stream System</string>
+    <string name="stream8">Stream Voice Call</string>
+    <string name="select_output">Select output</string>
 </resources>

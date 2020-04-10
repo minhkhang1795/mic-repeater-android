@@ -10,9 +10,11 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -25,7 +27,7 @@ import static java.lang.System.currentTimeMillis;
 /**
  * Sample that demonstrates how to record from a Bluetooth HFP microphone using {@link AudioRecord}.
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 //    FirebaseAnalytics mFirebaseAnalytics;
@@ -42,6 +44,8 @@ public class MainActivity extends Activity {
     TextView bluetoothStatusTV;
     Button startButton;
     Button stopButton;
+    Button selectOutputButton;
+    int streamType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,12 +55,14 @@ public class MainActivity extends Activity {
         requestNeededPermissions();
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        streamType = audioManager.isWiredHeadsetOn() ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
 
         // Find our view elements so we can change their properties later
         bluetoothIcon = findViewById(R.id.imageView_main_bluetooth);
         bluetoothStatusTV = findViewById(R.id.textView_main_bluetoothStatus);
         startButton = findViewById(R.id.button_main_start);
         stopButton = findViewById(R.id.button_main_stop);
+        selectOutputButton = findViewById(R.id.button_select_output);
 
         // Log events and crashes
 //        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -170,7 +176,6 @@ public class MainActivity extends Activity {
      * Starts the AudioRelayService.
      */
     private void startAudioService() {
-        int streamType = audioManager.isWiredHeadsetOn() ? AudioManager.STREAM_MUSIC : AudioManager.STREAM_ALARM;
         audioRelayServiceIntent = new Intent(this, AudioRelayService.class);
         audioRelayServiceIntent.putExtra(AudioRelayService.STREAM_KEY, streamType);
         // Set default volume control to alarm volume control
@@ -212,6 +217,47 @@ public class MainActivity extends Activity {
         }
         startButton.setEnabled(mBluetoothAvailable && !recordingInProgress);
         stopButton.setEnabled(mBluetoothAvailable && recordingInProgress);
+        selectOutputButton.setEnabled(mBluetoothAvailable && !recordingInProgress);
     }
 
+    public void onSelectButtonPressed(View view) {
+        PopupMenu popup = new PopupMenu(MainActivity.this, view);
+        popup.setOnMenuItemClickListener(MainActivity.this);
+        popup.inflate(R.menu.stream_type_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stream1:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    streamType = AudioManager.STREAM_ACCESSIBILITY;
+                }
+                return true;
+            case R.id.stream2:
+                streamType = AudioManager.STREAM_ALARM;
+                return true;
+            case R.id.stream3:
+                streamType = AudioManager.STREAM_DTMF;
+                return true;
+            case R.id.stream4:
+                streamType = AudioManager.STREAM_MUSIC;
+                return true;
+            case R.id.stream5:
+                streamType = AudioManager.STREAM_NOTIFICATION;
+                return true;
+            case R.id.stream6:
+                streamType = AudioManager.STREAM_RING;
+                return true;
+            case R.id.stream7:
+                streamType = AudioManager.STREAM_SYSTEM;
+                return true;
+            case R.id.stream8:
+                streamType = AudioManager.STREAM_VOICE_CALL;
+                return true;
+            default:
+                return false;
+        }
+    }
 }

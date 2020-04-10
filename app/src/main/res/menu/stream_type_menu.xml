@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/stream1"
+        android:title="@string/stream1" />
+    <item
+        android:id="@+id/stream2"
+        android:title="@string/stream2" />
+    <item
+        android:id="@+id/stream3"
+        android:title="@string/stream3" />
+    <item
+        android:id="@+id/stream4"
+        android:title="@string/stream4" />
+    <item
+        android:id="@+id/stream5"
+        android:title="@string/stream5" />
+    <item
+        android:id="@+id/stream6"
+        android:title="@string/stream6" />
+    <item
+        android:id="@+id/stream7"
+        android:title="@string/stream7" />
+    <item
+        android:id="@+id/stream8"
+        android:title="@string/stream8" />
+</menu>
