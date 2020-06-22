@@ -40,4 +40,17 @@
     <string name="next">Next</string>
     <string name="back">Back</string>
     <string name="finish">Finish</string>
+    <string name="link_icon">Link icon</string>
+    <string name="pneumask_resources">Pneumask Resources</string>
+    <string name="project_website">Project Website</string>
+    <string name="clinical_validation">Clinical Validation</string>
+    <string name="donning_doffing"><![CDATA[Donning & Doffing]]></string>
+    <string name="team">Team</string>
+    <string name="get_involved">Get Involved</string>
+    <string name="mask_feedback">Mask Feedback</string>
+    <string name="app_resources">App Resources</string>
+    <string name="app_feedback">App Feedback</string>
+    <string name="disclaimer_amp_privacy_policy"><![CDATA[Disclaimer & Privacy Policy]]></string>
+    <string name="pneumask_disclaimer">Pneumask Disclaimer</string>
+    <string name="privacy">Privacy</string>
 </resources>
